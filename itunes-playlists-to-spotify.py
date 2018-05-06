@@ -1,5 +1,8 @@
 #!/usr/local/bin/python3
 #
+# NOTE: You must have a Spotify developer account for this to work.
+# Learn more: https://beta.developer.spotify.com/documentation/web-api/quick-start/
+#
 # This will take all local iTunes playlists and convert
 # them to Spotify playlists. Most songs are able to be migrated,
 # however, there will be cases where songs are unable to be found in
@@ -33,16 +36,23 @@ def get_playlist_tracks(username, playlist_id):
 
     return tracks
 
-# Exclude iTunes default playlists
-playlist_exclusions = ['Downloaded', 'Audiobooks', 'Genius', 'Top 25 Most Played']
-
-sp_username = 'USERNAME'
+# User specific info
+sp_username = 'YOUR_USERNAME'
 sp_scope = 'playlist-modify-public'
-sp_token = util.prompt_for_user_token(sp_username, sp_scope)
+sp_client_id = 'YOUR_CLIENT_ID'
+sp_client_secret = 'YOUR_CLIENT_SECRET'
+sp_redirect_uri = 'http://localhost/'
+playlist_exclusions = ['Downloaded', 'Audiobooks', 'Genius', 'Top 25 Most Played']
+itunes_lib_loc = 'ITUNES_MUSIC_LIBRARY_XML_LOCATION'
+
+sp_token = util.prompt_for_user_token(sp_username, sp_scope, \
+                                      client_id=sp_client_id, \
+                                      client_secret=sp_client_secret, 
+                                      redirect_uri=sp_redirect_uri)
 sp = spotipy.Spotify(auth=sp_token)
 sp.trace = False
 
-it_lib = Library.Library('ITUNES MUSIC LIBRARY.XML LOCATION')
+it_lib = Library.Library(itunes_lib_loc)
 it_playlists = it_lib.getPlaylistNames()
 sp_playlists = sp.user_playlists(sp_username)
 
