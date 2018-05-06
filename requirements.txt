@@ -1,7 +1,4 @@
 pytest
-
 six
-
 libpytunes
-
 spotipy
