@@ -1,4 +1,4 @@
-# itunes-to-spotify
+# itunes-playlists-to-spotify
 
 Created by Ryan Murphy (https://www.rmurph.com)
 
